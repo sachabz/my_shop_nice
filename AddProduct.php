@@ -4,22 +4,10 @@ $name=$_POST["name"];
 $price=$_POST["price"];
 $color =$_POST["color"];
 $size =$_POST["size"];
+$sexe=$_POST['sexe'];
+$categorie=$_POST['categorie'];
 
-define("DBHOST", "localhost");
-define("DBUSER", "admin"); 
-define("DBPASS", "arthur");
-define("DBNAME", "my_shop");
-
-$dns = "mysql:dbname=".DBNAME.";host=".DBHOST;
-
-try{
-    $db = new PDO($dns, DBUSER, DBPASS);
-
-    echo "On est connectés";
-
-}catch(PDOException $e){
-    die("Erreur:".$e->getMessage());
-}
+include_once("connection.php");
 
 
     if(!empty($_POST)){
@@ -29,14 +17,16 @@ try{
             && !empty($_POST["name"]) && !empty($_POST["price"])
         ){ 
        
-        $sql = "INSERT INTO products(name, price, size, color) VALUES (:name, :price, :size, :color)";  
+        $sql = "INSERT INTO products(name, price, categorie, size, color, sexe) VALUES (:name, :price, :categorie, :size, :color, :sexe)";  
 
         $querry = $db->prepare($sql);
 
         $querry->bindValue(":name", $name, PDO::PARAM_STR);
         $querry->bindValue(":price", $price, PDO::PARAM_INT);
+        $querry->bindValue(":categorie", $categorie, PDO::PARAM_STR);
         $querry->bindValue(":size", $size, PDO::PARAM_STR);
         $querry->bindValue(":color", $color, PDO::PARAM_STR);
+        $querry->bindValue(":sexe", $sexe, PDO::PARAM_STR);
     
         if(!$querry->execute()){
              die("Une erreur est survenue");
@@ -63,8 +53,8 @@ try{
      <div>
        <label for="categorie">Catégorie</label><br>
          <select name="catégorie_id">
-           <option value="manche_courte">Manche Courte</option>
-           <option value="manche_longue">Manche Longue</option>
+           <option value="manche courte">Manche courte</option>
+           <option value="manche longue">Manche longue</option>
        </select><br><br>
      </div>
 
@@ -90,9 +80,11 @@ try{
      </div>
 
      <div>
-       <label for="public">Public</label><br>
-         <input type="radio" name="public" value="m" checked>Homme
-         <input type="radio" name="public" value="f">Femme<br><br>
+       <label for="sexe">Genre</label><br>
+          <select name="sexe" id="sexe"> 
+           <option value="Femme">Femme</option>
+           <option value="Homme">Homme</option>
+          </select><br><br> 
      </dib>
 
      <div> 
@@ -108,7 +100,3 @@ try{
      <input type="submit">
 </div>
  </form>
-© 2021 GitHub, Inc.
-Terms
-Privacy
-Security
