@@ -2,6 +2,6 @@
 if (isset($_GET['logout'])) {
     session_unset();
     setcookie('login');
-   return header('location:index.php');
+   return header('location:my_shop.php');
 }
 ?>
