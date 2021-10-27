@@ -1,4 +1,27 @@
-<!DOCTYPE html>
+<?php
+            //connexion BDD
+            define("DBHOST", "localhost:3306");
+            define("DBUSER", "admin"); 
+            define("DBPASS", "sacha");
+            define("DBNAME", "my_shop");
+            
+            $dns = "mysql:dbname=".DBNAME.";host=".DBHOST;
+            
+            try{
+                $db = new PDO($dns, DBUSER, DBPASS);
+            
+                $db->exec("SET NAMES utf8");
+            
+                echo "On est connecté";
+            
+            }catch(PDOException $e){
+                die("Erreur:".$e->getMessage());
+            }
+            //ALL products
+            $query = "SELECT * FROM products";
+            $result = $bdd->query($query);
+        ?>
+
 <html lang="fr">
     <head>
         <!-- Required meta tags -->
@@ -25,28 +48,35 @@
         <title>My shop footer</title>
 
     </head>
-    
+
+
     <body>
         <div class="product">
-        <?php
-            include_once("connection.php");
-            $reponse = $bdd->query('SELECT * FROM products');
-        ?>
             <div class="container">
-                <h1>Nos articles</h1>
-                <div class="card-deck">
-                <?php
-                while ($donnees = $reponse->fetch()) {
-                    ?>
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title"><?php echo $donnees['name']; ?></h5>
-                            <p class="card-text"><?php echo $donnees['price']; ?></p>
-                            <p class="card-text"><?php echo $donnees['color']; ?></p>
-                            <p class="card-text"><?php echo $donnees['size']; ?></p>
+                <div class="row">
+                    <?php
+                   echo "hell";?>
+                   <?php
+                        while ($donnees = $result->fetch()) {
+                            echo "hello";
+                        ?>
+                        
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                            <div class="card">
+                            <div class="card-body">
+                            <h5 class="card-title"><?php print_r($donnees['name']); ?></h5>
+                            <p class="card-text"><?php print_r($donnees['price']); ?></p>
+                            <p class="card-text"><?php print_r($donnees['color']); ?></p>
+                            <p class="card-text"><?php print_r($donnees['size']); ?></p>
                             <p class="card-text"><small class="text-muted"><?php echo $donnees['Categorie']; ?></small></p>
                         </div>
-                    </div>
+                            </div>
+                        </div>
+            
+                        <?php
+                        }
+                    ?>
+            
                 </div>
             </div>
                 
@@ -55,7 +85,7 @@
                 ?>
             </footer>
                 
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
+         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
         </script>
     </body>
 </html>
