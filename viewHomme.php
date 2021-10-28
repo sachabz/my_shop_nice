@@ -50,7 +50,7 @@ $result = $query->fetchAll(PDO::FETCH_ASSOC);
                 <?php
                 foreach($result as $produit){
                 ?>
-                <div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 ml-1 mr-1 mt-1 mb-1">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
                     <div class="card" style="width: 18rem;">
                         <i class="fa fa-tshirt"></i>
                         <div class="card-header">

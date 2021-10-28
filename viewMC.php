@@ -4,7 +4,7 @@ session_start();
 require_once('connexion.php');
 
 /// SELECT ALL //
-$sql = 'SELECT * FROM `products` WHERE size="xl"';
+$sql = 'SELECT * FROM `products` WHERE categorie="manche courte"';
 
 $query = $db->prepare($sql);
 $query->execute();

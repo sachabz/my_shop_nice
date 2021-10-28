@@ -4,7 +4,7 @@ session_start();
 require_once('connexion.php');
 
 /// SELECT ALL //
-$sql = 'SELECT * FROM `products` WHERE size="xl"';
+$sql = 'SELECT * FROM `products` WHERE color="blanc" color="bleu" color="rouge" color="noir" color="gris"';
 
 $query = $db->prepare($sql);
 $query->execute();
