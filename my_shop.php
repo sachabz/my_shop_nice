@@ -36,36 +36,55 @@ $result = $query->fetchAll(PDO::FETCH_ASSOC);
 <body>
     <!--NAVBAR-->
     
-    <section class="container" style="background-color: white;">
+    <section class="container mb-2">
                 <h1 class="d-none">Navbar</h1>
-                <nav class="navbar navbar-expand-lg navbar-light navbar-light" style="background-color: white;">
+                <nav class="navbar navbar-expand-lg bg-dark navbar-dark" style="background-color: white;">
                     <div class="container-fluid">
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03"
                                 aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
                         </button>
-                        <div class="collapse navbar-collapse" id="navbarColor03" style="background-color: white;">
+                        <div class="collapse navbar-collapse" id="navbarColor03">
                             <ul class="navbar-nav me-auto">
                             <li class="nav-item">
-                                    <a class="nav-link text-black" name="linkAll" href="?link=all">TOUS LES T-SHIRTS</a>
+                                    <a class="nav-link" name="linkAll" href="?link=all">TOUS LES T-SHIRTS</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-black" name="linkHomme" href="?link=homme">HOMMES
+                                    <a class="nav-link" name="linkHomme" href="?link=homme">HOMMES
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-black" name="linkFemme" href="?link=femme">FEMMES</a>
+                                    <a class="nav-link" name="linkFemme" href="?link=femme">FEMMES</a>
                                 </li>
                             </ul>
                             <div class="d-flex">
                                 <ul class="navbar-nav me-auto">
                                     <li class="nav-item">
                                         <a class="nav-link" href="#">
-                                            <i class="fa fa-shopping-cart text-black"></i>
+                                            <i class="fa fa-shopping-cart"></i>
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link text-black" href="./inscription.php">connexion</a>
+                                    <?php
+                                            if (isset($_SESSION['firstname']))
+                                            {
+                                            
+                                            } else {
+                                                echo '<a class="nav-link" href="./inscription.php">INSCRIPTION</a>';
+                                            }
+                                            ?>
+                                    </li>
+                                    <li class="nav-item active">
+                                         <?php
+                                            if (isset($_SESSION['firstname']))
+                                            {
+                                                echo "<a class='nav-link' href='logout.php'>DECONNEXION</a>";
+                                            }
+                                            else
+                                            {
+                                                echo "<a class='nav-link' href='login.php'>CONNEXION</a>";
+                                            }
+                                        ?>
                                     </li>
                                 </ul>
                             </div>
@@ -77,7 +96,7 @@ $result = $query->fetchAll(PDO::FETCH_ASSOC);
 
 
 <!--FILTRE-->
-            <section class="container mb-5" style="background-color: white;">
+            <section class="container mb-2" style="background-color: white;">
             <h1 class="d-none">Filters</h1>
                 <div class="row">
                     <div class="col-1">
@@ -118,65 +137,100 @@ $result = $query->fetchAll(PDO::FETCH_ASSOC);
                                 </div>
                             </div>
                         </div>
+                        <div class="col-1">
+                            <div class="dropdown">
+                                <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Filtrez par prix
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" href="?link=prixasc">Prix Croissant</a>
+                                    <a class="dropdown-item" href="?link=prixdesc">Prix décroissant</a>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </section>         
+<!--FILTRE-->
+
+<!--SEARCHBAR-->
+            <section class="container mb-5" style="background-color: white;">
+                <h1 class="d-none">Filters</h1>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="input-group rounded">
+                            <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+                            <span class="input-group-text border-0" id="search-addon">
+                                <i class="fa fa-search"></i>
+                            </span>
+                        </div>
+                    </div>
                 </div>
             </section>
-            
-<!--FILTRE-->
+<!--SEARCHBAR-->
 
 <!--AFFICHAGE MAIN-->
 
             <section class="container" style="background-color: white;">
-                <div id="mainSection">
-                            <?php
-                        if(isset($_GET['link'])){
-                            $link=$_GET['link'];
-                            if ($link == 'homme'){
-                                include 'viewHomme.php';
-                            }
-                            if ($link == 'femme'){
-                                include 'viewFemme.php';
-                            }
-                            if ($link == 'all'){
+                <div class="row">
+                    <div id="mainSection">
+                                <?php
+                            if(isset($_GET['link'])){
+                                $link=$_GET['link'];
+                                if ($link == 'homme'){
+                                    include 'viewHomme.php';
+                                }
+                                if ($link == 'femme'){
+                                    include 'viewFemme.php';
+                                }
+                                if ($link == 'all'){
+                                    include 'viewAll.php';
+                                } 
+                                if ($link == 'S'){
+                                    include 'viewS.php';
+                                } 
+                                if ($link == 'M'){
+                                    include 'viewM.php';
+                                } 
+                                if ($link == 'L'){
+                                    include 'viewL.php';
+                                } 
+                                if ($link == 'XL'){
+                                    include 'viewXL.php';
+                                } 
+                                if ($link == 'bleu'){
+                                    include 'viewBleu.php';
+                                } 
+                                if ($link == 'blanc'){
+                                    include 'viewBlanc.php';
+                                } 
+                                if ($link == 'rouge'){
+                                    include 'viewRlanc.php';
+                                } 
+                                if ($link == 'noir'){
+                                    include 'viewNoir.php';
+                                } 
+                                if ($link == 'gris'){
+                                    include 'viewGris.php';
+                                } 
+                                if ($link == 'longue'){
+                                    include 'viewML.php';
+                                } 
+                                if ($link == 'courte'){
+                                    include 'viewMC.php';
+                                } 
+                                if ($link == 'prixasc'){
+                                    include 'viewPrixAsc.php';
+                                } 
+                                if ($link == 'prixdesc'){
+                                    include 'viewPrixD.php';
+                                } 
+                            }else {
                                 include 'viewAll.php';
-                            } 
-                            if ($link == 'S'){
-                                include 'viewS.php';
-                            } 
-                            if ($link == 'M'){
-                                include 'viewM.php';
-                            } 
-                            if ($link == 'L'){
-                                include 'viewL.php';
-                            } 
-                            if ($link == 'XL'){
-                                include 'viewXL.php';
-                            } 
-                            if ($link == 'bleu'){
-                                include 'viewBleu.php';
-                            } 
-                            if ($link == 'blanc'){
-                                include 'viewBlanc.php';
-                            } 
-                            if ($link == 'rouge'){
-                                include 'viewRlanc.php';
-                            } 
-                            if ($link == 'noir'){
-                                include 'viewNoir.php';
-                            } 
-                            if ($link == 'gris'){
-                                include 'viewGris.php';
-                            } 
-                            if ($link == 'longue'){
-                                include 'viewML.php';
-                            } 
-                            if ($link == 'courte'){
-                                include 'viewMC.php';
-                            } 
-                        }else {
-                            include 'viewAll.php';
-                        }
-                            ?>  
+                            }
+                                ?>  
+                    </div>
                 </div>
+            </section>
 <!--NAVBAR AFFICHAGE MAIN-->
 
     <?php include_once("footer.html") ?>
