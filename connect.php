@@ -2,7 +2,7 @@
 <?php
 try{
     // Connexion à la base
-    $db = new PDO('mysql:host=localhost;dbname=my_shop', 'admin', 'arthur');
+    $db = new PDO('mysql:host=localhost;dbname=my_shop', 'admin', 'sacha');
     $db->exec('SET NAMES "UTF8"');
 
 
