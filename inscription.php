@@ -4,6 +4,7 @@ $ID=$_POST["ID"];
 $firstname=$_POST["firstname"];
 $name=$_POST["name"];
 $email =$_POST["email"];
+$password=$_POST['password'];
 $postcode =$_POST["postcode"];
 $ville=$_POST['ville'];
 $address=$_POST['address'];
@@ -18,7 +19,7 @@ include_once("connect.php");
             && !empty($_POST["name"]) && !empty($_POST["firstname"])
         ){ 
        
-        $sql = "INSERT INTO users(ID, firstname, name, email, postcode, ville, address, phone) VALUES (:ID, :firstname, :name, :email, :postcode, :ville, :address, :phone)";  
+        $sql = "INSERT INTO users(ID, firstname, name, email, postcode, ville, address, phone, password) VALUES (:ID, :firstname, :name, :email, :postcode, :ville, :address, :phone, :password)";  
 
         $querry = $db->prepare($sql);
 
@@ -30,6 +31,7 @@ include_once("connect.php");
         $querry->bindValue(":ville", $ville, PDO::PARAM_STR);
         $querry->bindValue(":address", $address, PDO::PARAM_STR);
         $querry->bindValue(":phone", $phone, PDO::PARAM_STR);
+        $querry->bindValue(":password", $password, PDO::PARAM_STR);
     
         if(!$querry->execute()){
              die("Une erreur est survenue");
