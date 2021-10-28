@@ -1,91 +1,93 @@
 <?php
-            //connexion BDD
-            define("DBHOST", "localhost:3306");
-            define("DBUSER", "admin"); 
-            define("DBPASS", "sacha");
-            define("DBNAME", "my_shop");
-            
-            $dns = "mysql:dbname=".DBNAME.";host=".DBHOST;
-            
-            try{
-                $db = new PDO($dns, DBUSER, DBPASS);
-            
-                $db->exec("SET NAMES utf8");
-            
-                echo "On est connecté";
-            
-            }catch(PDOException $e){
-                die("Erreur:".$e->getMessage());
-            }
-            //ALL products
-            $query = "SELECT * FROM products";
-            $result = $bdd->query($query);
-        ?>
+session_start();
 
+require_once('connexion.php');
+
+$sql = 'SELECT * FROM `products`';
+
+$query = $db->prepare($sql);
+
+$query->execute();
+
+$result = $query->fetchAll(PDO::FETCH_ASSOC);
+
+?>
+<!DOCTYPE html>
 <html lang="fr">
-    <head>
-        <!-- Required meta tags -->
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste des produits</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
 
-        <!-- Bootstrap CSS -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-            integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-        <!-- FontAwesome Link -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-        <!-- CSS Links -->
-        <link rel="stylesheet" type="text/css" href="footer.css">
-        <link rel="stylesheet" type="text/css" href="index.css">
-
-        <!-- CSS Fonts Links -->
-        <link rel="stylesheet" type="text/css" href="../Fonts/fonts.css">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
-
-        <title>My shop footer</title>
-
-    </head>
-
-
-    <body>
-        <div class="product">
-            <div class="container">
-                <div class="row">
-                    <?php
-                   echo "hell";?>
-                   <?php
-                        while ($donnees = $result->fetch()) {
-                            echo "hello";
-                        ?>
-                        
-                        <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
-                            <div class="card">
-                            <div class="card-body">
-                            <h5 class="card-title"><?php print_r($donnees['name']); ?></h5>
-                            <p class="card-text"><?php print_r($donnees['price']); ?></p>
-                            <p class="card-text"><?php print_r($donnees['color']); ?></p>
-                            <p class="card-text"><?php print_r($donnees['size']); ?></p>
-                            <p class="card-text"><small class="text-muted"><?php echo $donnees['Categorie']; ?></small></p>
+</head>
+<body>
+    <!--NAVBAR-->
+    
+<section class="container" style="background-color: white;">
+            <h1 class="d-none">Navbar</h1>
+            <nav class="navbar navbar-expand-lg navbar-light navbar-light" style="background-color: white;">
+                <div class="container-fluid">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03"
+                            aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarColor03" style="background-color: white;">
+                        <ul class="navbar-nav me-auto">
+                            <li class="nav-item">
+                                <a class="nav-link text-black" name="linkHomme" href="?link=1">HOMMES
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-black" name="linkFemme" href="?link=2">FEMMES</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-black" name="linkAll" href="?link=3">TOUS LES T-SHIRTS</a>
+                            </li>
+                        </ul>
+                        <div class="d-flex">
+                            <ul class="navbar-nav me-auto">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">
+                                        <i class="fa fa-shopping-cart text-black"></i>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-black" href="./inscription.php">connexion</a>
+                                </li>
+                            </ul>
                         </div>
-                            </div>
-                        </div>
-            
-                        <?php
-                        }
-                    ?>
-            
+                    </div>
                 </div>
-            </div>
-                
-            <footer>
-                <?php include_once("footer.html");
-                ?>
-            </footer>
-                
-         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
-        </script>
-    </body>
+            </nav>
+        </section>
+        
+<!--NAVBAR-->
+
+<div id="mainSection">
+            <?php
+        if(isset($_GET['link'])){
+            $link=$_GET['link'];
+            if ($link == '1'){
+                include 'viewHomme.php';
+            }
+            if ($link == '2'){
+                include 'viewFemme.php';
+            }
+            if ($link == '3'){
+                include 'viewAll.php';
+            } 
+        }else {
+            include 'viewAll.php';
+        }
+            ?>  
+</div>
+
+    <?php include_once("footer.html") ?>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</body>
 </html>
