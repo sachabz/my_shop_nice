@@ -93,7 +93,27 @@ $result = $query->fetchAll(PDO::FETCH_ASSOC);
                 </nav>
             </section>   
 <!--NAVBAR-->
-
+<!--NAVBAR ADMIN-->
+            <section class="container" style="background-color: white;">
+                        <nav class="navbar navbar-expand-lg navbar-light navbar-light" style="background-color: white;">
+                            <div class="container-fluid"
+                                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03"
+                                        aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+                                    <span class="navbar-toggler-icon"></span>
+                                </button>
+                                <div class="collapse navbar-collapse" id="navbarColor03" style="background-color: white;">
+                                    <ul class="navbar-nav me-auto">
+                                        <li class="nav-item">
+                                            <a class="nav-link text-black" href="AdminUsers.php">USERS</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link text-black" href="AdminProducts.php">PRODUCTS</a>
+                                    </ul>
+                                    </div>
+                                </div>
+                        </nav>
+                    </section>
+<!--NAVBAR ADMIN-->
 
 <!--FILTRE-->
             <section class="container mb-2" style="background-color: white;">
