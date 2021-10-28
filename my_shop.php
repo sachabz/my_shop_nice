@@ -39,7 +39,7 @@ $result = $query->fetchAll(PDO::FETCH_ASSOC);
             <section class="container mb-2" style="background-color: white;">
             <h1 class="d-none">Filters</h1>
                 <div class="row">
-                    <div class="col-1">
+                    <div class="col-lg-1 col-xl-1 col-md-12 col-sm-12">
                         <div class="dropdown">
                             <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Taille
@@ -52,7 +52,7 @@ $result = $query->fetchAll(PDO::FETCH_ASSOC);
                             </div>
                         </div>
                     </div>
-                    <div class="col-1">
+                    <div class="col-lg-1 col-xl-1 col-md-12 col-sm-12">
                         <div class="dropdown">
                             <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Couleur
@@ -66,7 +66,7 @@ $result = $query->fetchAll(PDO::FETCH_ASSOC);
                             </div>
                         </div>
                     </div>
-                    <div class="col-1">
+                    <div class="col-lg-1 col-xl-1 col-md-12 col-sm-12">
                             <div class="dropdown">
                                 <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         Catégorie
@@ -77,7 +77,7 @@ $result = $query->fetchAll(PDO::FETCH_ASSOC);
                                 </div>
                             </div>
                         </div>
-                        <div class="col-1">
+                        <div class="col-lg-1 col-xl-1 col-md-12 col-sm-12">
                             <div class="dropdown">
                                 <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         Filtrez par prix
@@ -106,6 +106,7 @@ $result = $query->fetchAll(PDO::FETCH_ASSOC);
                     </div>
                 </div>
             </section>
+
 <!--SEARCHBAR-->
 
 <!--AFFICHAGE MAIN-->
@@ -114,6 +115,7 @@ $result = $query->fetchAll(PDO::FETCH_ASSOC);
                 <div class="row">
                     <div id="mainSection">
                                 <?php
+
                             if(isset($_GET['link'])){
                                 $link=$_GET['link'];
                                 if ($link == 'homme'){

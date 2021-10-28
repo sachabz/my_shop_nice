@@ -1,7 +1,12 @@
-<?php 
-if (isset($_GET['logout'])) {
-    session_unset();
-    setcookie('login');
-   return header('location:my_shop.php');
-}
+
+<?php
+	
+	session_start();
+	
+	
+	if(session_destroy())
+	{
+		
+		header("Location: my_shop.php");
+	}
 ?>

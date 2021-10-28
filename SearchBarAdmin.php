@@ -30,7 +30,7 @@
                                     <a class="nav-link" name="linkAll" href="./my_shop.php">MY SHOP</a>
                                 </li>
                             <li class="nav-item">
-                                    <a class="nav-link" name="linkAll" href="./Admin.php">ADMINISTRATEUR</a>
+                                    <a class="nav-link" name="linkAll" href="./admin.php">ADMINISTRATEUR</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" name="linkHomme" href="./AdminUsers.php">UTILISATEURS

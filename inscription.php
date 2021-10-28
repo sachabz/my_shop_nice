@@ -1,22 +1,22 @@
 <?php
 
-$ID=$_POST["ID"];
-$firstname=$_POST["firstname"];
-$name=$_POST["name"];
-$email =$_POST["email"];
-$password=$_POST['password'];
-$postcode =$_POST["postcode"];
-$ville=$_POST['ville'];
-$address=$_POST['address'];
-$phone=$_POST["phone"];
+$ID=$_SESSION["ID"];
+$firstname=$_SESSION["firstname"];
+$name=$_SESSION["name"];
+$email =$_SESSION["email"];
+$password=$_SESSION['password'];
+$postcode =$_SESSION["postcode"];
+$ville=$_SESSION['ville'];
+$address=$_SESSION['address'];
+$phone=$_SESSION["phone"];
 
 include_once("connect.php");
 
     if(!empty($_POST)){
 
         if(
-            isset($_POST["name"], $_POST["firstname"])
-            && !empty($_POST["name"]) && !empty($_POST["firstname"])
+            isset($_SESSION["name"], $_SESSIONT["firstname"])
+            && !empty($_SESSION["name"]) && !empty($_SESSION["firstname"])
         ){ 
         $password=md5($password);
         $sql = "INSERT INTO users(ID, firstname, name, email, postcode, ville, address, phone, password) VALUES (:ID, :firstname, :name, :email, :postcode, :ville, :address, :phone, :password)";  
@@ -71,7 +71,7 @@ include_once("connect.php");
                     }
                 ?>
                 <h1>Inscrivez-vous ici</h1>
-                <form method="post">
+                <form method="post" action="my_shop.php">
                     <div class="form-group">
                         <label for="firstname">Prénom:</label>
                         <input type="text" id="firstname" name="firstname" placeholder="Luc" class="form-control">

@@ -12,8 +12,6 @@ try{
 
     $db->exec("SET NAMES utf8");
 
-    echo "On est connectés";
-
 }catch(PDOException $e){
     die("Erreur:".$e->getMessage());
 }

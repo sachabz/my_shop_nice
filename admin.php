@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-require_once('connexion.php');
+require_once('connect.php');
 
 $sql = 'SELECT * FROM `products`';
 
@@ -22,6 +22,7 @@ $result = $query->fetchAll(PDO::FETCH_ASSOC);
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
 <body>
+<?php include_once("SearchBarAdmin.php")  ?>
     <main class="container">
         <div class="row">
             <section class="col-12">
@@ -41,35 +42,12 @@ $result = $query->fetchAll(PDO::FETCH_ASSOC);
                         $_SESSION['message'] = "";
                     }
                 ?>
-                <h1>Liste des produits</h1>
-                <table class="table">
-                    <thead>
-                        <th>ID</th>
-                        <th>Nom du Produit</th>
-                        <th>Prix</th>
-                        <th>Taille disponible</th>
-                        <th>Couleur</th>
-                        <th>Categorie</th>
-                    </thead>
-                    <tbody>
-                        <?php
-                        foreach($result as $produit){
-                        ?>
-                            <tr>
-                                <td><?= $produit['id'] ?></td>
-                                <td><?= $produit['name'] ?></td>
-                                <td><?= $produit['price'] ?></td>
-                                <td><?= $produit['size'] ?></td>
-                                <td><?= $produit['color'] ?></td>
-                                <td><?= $produit['categorie'] ?></td>
-                                <td><a href="details.php?id=<?= $produit['id'] ?>">Voir</a> <a href="edit.php?id=<?= $produit['id'] ?>">Modifier</a> <a href="delete.php?id=<?= $produit['id'] ?>">Supprimer</a></td>
-                            </tr>
-                        <?php
-                        }
-                        ?>
-                    </tbody>
-                </table>
+                <h1>Bienvenue sur le site administrateur</h1>
+                
+                <a href="AdminProducts.php" class="btn btn-primary">Tous produits</a>
+                <a href="AdminUsers.php" class="btn btn-primary">Tous les membres</a>
                 <a href="AddProduct.php" class="btn btn-primary">Ajouter un produit</a>
+                <a href="AddUsers.php" class="btn btn-primary">Ajouter un membre</a>
             </section>
         </div>
     </main>
