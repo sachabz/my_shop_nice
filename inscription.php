@@ -1,58 +1,44 @@
-<?php 
+<?php
 
-$firstname=$_POST["firstname"];   
+$ID=$_POST["ID"];
+$firstname=$_POST["firstname"];
 $name=$_POST["name"];
-$password=$_POST["password"];
 $email =$_POST["email"];
 $postcode =$_POST["postcode"];
-$ville=$_POST["ville"]
-$address =$_POST["address"];
+$ville=$_POST['ville'];
+$address=$_POST['address'];
 $phone=$_POST["phone"];
 
-
-define("DBHOST", "localhost");
-define("DBUSER", "admin"); 
-define("DBPASS", "arthur");
-define("DBNAME", "my_shop");
-
-$dns = "mysql:dbname=".DBNAME.";host=".DBHOST;
-
-try{
-    $db = new PDO($dns, DBUSER, DBPASS);
-
-    echo "On est connectés";
-
-}catch(PDOException $e){
-    die("Erreur:".$e->getMessage());
-}
-
+include_once("connect.php");
 
     if(!empty($_POST)){
 
         if(
-            isset($_POST["name"], $_POST["password"])
-            && !empty($_POST["name"]) && !empty($_POST["password"])
+            isset($_POST["name"], $_POST["firstname"])
+            && !empty($_POST["name"]) && !empty($_POST["firstname"])
         ){ 
        
-        $sql = "INSERT INTO users(firstname, name, password, email, postcode, address, phone) VALUES (:firstname, :name, :password, :email, :postcode, :address, :phone)";  
+        $sql = "INSERT INTO users(ID, firstname, name, email, postcode, ville, address, phone) VALUES (:ID, :firstname, :name, :email, :postcode, :ville, :address, :phone)";  
 
         $querry = $db->prepare($sql);
 
+        $querry->bindValue(":ID", $ID, PDO::PARAM_INT);
         $querry->bindValue(":firstname", $firstname, PDO::PARAM_STR);
         $querry->bindValue(":name", $name, PDO::PARAM_STR);
-        $querry->bindValue(":password", $password);
         $querry->bindValue(":email", $email, PDO::PARAM_STR);
-        $querry->bindValue(":postcode", $postcode, PDO::PARAM_INT);
+        $querry->bindValue(":postcode", $postcode, PDO::PARAM_STR);
         $querry->bindValue(":ville", $ville, PDO::PARAM_STR);
-        $querry->bindValue(":address", $address);
-        $querry->bindValue(":phone", $phone, PDO::PARAM_INT);
-
+        $querry->bindValue(":address", $address, PDO::PARAM_STR);
+        $querry->bindValue(":phone", $phone, PDO::PARAM_STR);
+    
         if(!$querry->execute()){
              die("Une erreur est survenue");
         }
     
-        $id = $db->lastInsertId();
-            die("L'article $id a était ajouté au catalogue");
+       $_SESSION['message'] = "Produit ajouté";
+        require_once('close.php');
+
+        header('Location: AdminUsers.php');
 
     }else{
             die("Le formulaire est imcomplet");
@@ -61,53 +47,79 @@ try{
     }    
 ?>
 
- <h1> ADD Produits </h1>
- <form method="post" enctype="multipart/form-data">
-    
-     <div>
-       <label for="firstname">Votre prénom:</label><br>
-       <input type="text" id="firstname" name="firstname" placeholder=" Emmanuel"> <br><br>
-     </div>
-     
-     <div>
-       <label for="name">Votre om:n</label><br>
-       <input type="text" id="name" name="name" placeholder="Macron"> <br><br>
-     </div>
-     
-     <div>
-       <label for="password">Votre mots de passe:</label><br>
-       <input type="password" id="password" name="password" placeholder="*******"> <br><br>
-     </div>
-       
-     <div>
-       <label for="password_confirmation">Confirmer votre mots de passe:</label><br>
-       <input type="password" id="password_confirmation" name="password_confirmation" placeholder="*******"> <br><br>
-     </div>  
-      
-    <div>
-      <label for="email">Votre email:</label><br>
-      <input type="text" id="email" name="email" placeholder="emmanuel.macron@gmail.com"> <br><br>
-     </div>
-     
-     <div>
-       <label for="postcode">Votre code postal:</label><br>
-       <input type="text" id="postcode" name="postcode" placeholder="75000"> <br><br>
-     </div>
-    
-     <div>
-       <label for="ville">Votre code postal:</label><br>
-       <input type="text" id="ville" name="ville" placeholder="Paris"> <br><br>
-     </div>
-     <div>
-       <label for="address">Votre adresse</label><br>
-       <input type="text" id="address" name="address" placeholder="55 Rue du Faubourg Saint-Honoré"> <br><br>
-     </div>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajouter un produit</title>
 
-     <div>
-       <label for="phone">Votre numéro de téléphone:</label><br>
-       <input type="text" id="phone" name="phone" placeholder="01 42 92 81 00"> <br><br>
-     </div>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+<body>
+    <main class="container">
+        <div class="row">
+            <section class="col-12">
+                <?php
+                    if(!empty($_SESSION['erreur'])){
+                        echo '<div class="alert alert-danger" role="alert">
+                                '. $_SESSION['erreur'].'
+                            </div>';
+                        $_SESSION['erreur'] = "";
+                    }
+                ?>
+                <h1>Ajouter un utilisateur</h1>
+                <form method="post">
+                    <div class="form-group">
+                        <label for="firstname">Prénom:</label>
+                        <input type="text" id="firstname" name="firstname" placeholder="Luc" class="form-control">
+                    </div>
+                    
+                   <div class="form-group">
+                        <label for="name">Nom:</label>
+                        <input type="text" id="name" name="name" placeholder="Dupont de Ligonnès" class="form-control">
+                    </div>
 
-     <input type="submit">
-</div>
- </form>
+                    <div class="form-group">
+                        <label for="password">Mots de passe</label>
+                        <input type="password" id="password" name="password" placeholder="******" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Confirmer votre mots de passe</label>
+                        <input type="password" id="password" name="password" placeholder="******" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="text" id="email" name="email" placeholder="luc.dupontdeligonnes@gmail.com" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Téléphone</label>
+                        <input type="text" id="phone" name="phone" placeholder="06 44 23 57 09" class="form-control">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="postcode">Code postal</label>
+                        <input type="text" id="postcode" name="postcode" placeholder="59000" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ville">Ville</label>
+                        <input type="text" id="ville" name="ville" placeholder="Lille" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="address">Adresse</label>
+                        <input type="text" id="address" name="address" placeholder="18 rue de la Blanca" class="form-control">
+                    </div>
+
+                    <button class="btn btn-primary">Envoyer</button>
+                    <a href="my_shop.php" class="btn btn-primary">Retour</a>
+                </form>
+            </section>
+        </div>
+    </main>
+</body>
+</html>
